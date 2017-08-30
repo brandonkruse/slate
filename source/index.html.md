@@ -3,13 +3,10 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
+
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
   - errors
@@ -19,27 +16,11 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Welcome to the CommentSold API!
 
 # Authentication
 
 > To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
 
 ```shell
 # With shell, you can just pass the correct header with each request
@@ -47,193 +28,367 @@ curl "api_endpoint_here"
   -H "Authorization: meowmeowmeow"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+CommentSold uses JWT API keys to allow access to the API. You can register a new JWT API ......
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+CommentSold expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
 `Authorization: meowmeowmeow`
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
 
-# Kittens
+# Products
 
-## Get All Kittens
+## Get All Products
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
 
 ```shell
-curl "http://example.com/api/kittens"
+curl "https://divas.commentsold.com/api/2.0/products?app_version=1.3&category=1&skip=0"
   -H "Authorization: meowmeowmeow"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
 
 > The above command returns JSON structured like this:
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "prod_id":4096,
+    "post_id":7343,
+    "category":"shirt",
+    "created_time":1504116005,
+    "prod_name":"Varsity stripes sleeves top",
+    "description":"Hey Divas!! Be super comfortable in style, when you wear this loose fit top with athletic sleeves. Pair this fun top with your choice of jeans or leggings, to be ready for wherever your day takes you. Order now!!",
+    "measurements":"Medium Measurements: Bust- 50\"\/ Length- 28\"\r\nMaterials: 95% Viscose \/ 5% Spandex\r\nBrand: Eesome",
+    "qty":null,
+    "base_retail":"24",
+    "style":"sku7157",
+    "filename":"598893d453788.jpg",
+    "likes":0,
+    "inventory":
+    [
+      {
+        "inventory_id":30542,
+        "qty":0,
+        "color":"rust",
+        "size":"large"
+      },      
+      {
+        "inventory_id":30537,
+        "qty":3,
+        "color":"blue",
+        "size":"small"
+      }
+    ],
+
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all products.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET /api/2.0/products`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter | Description
+--------- | -------
+app_version |
+category |
+skip |
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+Authentication is not required
 </aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Get a Specific product
 
 ```shell
-curl "http://example.com/api/kittens/2"
+curl "https://divas.commentsold.com/api/2.0/products?app_version=1.3/1400"
   -H "Authorization: meowmeowmeow"
 ```
 
-```javascript
-const kittn = require('kittn');
+This endpoint retrieves a specific product.
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="notice">Important to ignore cache data.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
+`GET /api/2.0/products/<ID>`
 
 Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+--------- | -------
+app_version |
 
-## Delete a Specific Kitten
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+## Get a Waitlist Products
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
+curl "https://divas.commentsold.com/api/2.0/products/waitlist?app_version=1.3"
   -H "Authorization: meowmeowmeow"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a waitlist products.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
+`GET /api/2.0/products/waitlist`
 
 Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+--------- | -------
+app_version |
 
+## Get Search Results
+
+```shell
+curl "https://divas.commentsold.com/api/2.0/products/search?app_version=1.3&size=5&category=dress&instock=true&skip=10"
+  -H "Authorization: meowmeowmeow"
+```
+
+This endpoint retrieves a waitlist products.
+
+### HTTP Request
+
+`GET /api/2.0/products/search?`
+
+Parameter | Description
+--------- | -------
+app_version |
+size |
+category |
+instock |
+skip |
+
+
+
+# Cart
+
+## Get Cart
+
+```shell
+curl "https://divas.commentsold.com/api/2.0/cart?app_version=1.3"
+  -H "Authorization: meowmeowmeow"
+```
+
+### HTTP Request
+
+`GET /api/2.0/cart`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Get Past Orders
+
+```shell
+curl "https://divas.commentsold.com/api/2.0/carts?app_version=1.3"
+  -H "Authorization: meowmeowmeow"
+```
+
+
+### HTTP Request
+
+`GET /api/2.0/carts`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Add Item
+
+```shell
+curl "https://divas.commentsold.com/api/2.0/cart/products"
+  -H "Authorization: meowmeowmeow"
+```
+
+### HTTP Request
+
+`POST /api/2.0/cart/products`
+
+Parameter | Description
+--------- | -------
+app_version |
+id |
+inventory_id |
+
+
+## Delete Item
+
+
+### HTTP Request
+
+`DELETE /api/2.0/cart/products/<inventory_id>`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Add Coupon
+
+
+### HTTP Request
+
+`POST /api/2.0/cart/coupon`
+
+Parameter | Description
+--------- | -------
+app_version |
+code |
+
+# Stripe
+
+## Get All Cards
+
+
+### HTTP Request
+
+`GET /api/2.0/stripe/cards`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Add Card
+
+
+### HTTP Request
+
+`POST /api/2.0/stripe/cards`
+
+Parameter | Description
+--------- | -------
+app_version |
+id |
+
+## Delete Card
+
+
+### HTTP Request
+
+`DELETE /api/2.0/stripe/cards/<ID>`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Set Default Card
+
+
+### HTTP Request
+
+`PUT /api/2.0/stripe/cards/<ID>`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+# Checkout
+
+## Stripe
+
+
+
+### HTTP Request
+
+`POST /api/2.0/checkout/stripe`
+
+Parameter | Description
+--------- | -------
+app_version |
+oid |
+amount |
+token |
+
+## PayPal
+
+
+### HTTP Request
+
+`POST /api/2.0/checkout/paypal`
+
+Parameter | Description
+--------- | -------
+app_version |
+oid |
+paymentjson |
+
+## Get Balance
+
+
+### HTTP Request
+
+`GET /api/2.0/checkout/balance`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Use Balance
+
+
+
+### HTTP Request
+
+`POST /api/2.0/checkout/balance`
+
+Parameter | Description
+--------- | -------
+app_version |
+oid |
+
+# Settings
+
+## Set Address
+
+
+
+### HTTP Request
+
+`POST /api/2.0/address`
+
+Parameter | Description
+--------- | -------
+app_version |
+street |
+apt |
+state |
+city |
+zip |
+
+## Get Address
+
+
+### HTTP Request
+
+`GET /api/2.0/address`
+
+Parameter | Description
+--------- | -------
+app_version |
+
+## Update Email
+
+
+### HTTP Request
+
+`PUT /api/2.0/email`
+
+Parameter | Description
+--------- | -------
+app_version |
+email |
+
+
+## Get Email
+
+
+### HTTP Request
+
+`GET /api/2.0/email`
+
+Parameter | Description
+--------- | -------
+app_version |
