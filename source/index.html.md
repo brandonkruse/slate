@@ -25,18 +25,66 @@ Welcome to the CommentSold API!
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
 
-> Make sure to replace `meowmeowmeow` with your API key.
+CommentSold uses JWT API keys to allow access to the API.
 
-CommentSold uses JWT API keys to allow access to the API. You can register a new JWT API ......
+![JWT diagram](/images/jwt-diagram.png)
 
-CommentSold expects for the API key to be included in all API requests to the server in a header that looks like the following:
+CommentSold expects for the JWT to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ`
 
+## Sign in
+
+```shell
+curl "https://divas.commentsold.com/api/2.0/signin"
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+}
+
+```
+
+
+To sign in you should use Facebook accessToken and userID.
+
+### HTTP Request
+
+`POST /api/2.0/signin`
+
+Parameter | Description
+--------- | -------
+app_version |
+accessToken |
+userID |
+
+
+## Sign out
+
+
+```shell
+# With shell, you can just pass the correct header with each request
+curl "https://divas.commentsold.com/api/2.0/signout"
+  -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+```
+
+To sign out you should explicitly invalidate token
+
+### HTTP Request
+
+`POST /api/2.0/signout`
+
+Parameter | Description
+--------- | -------
+app_version |
 
 # Products
 
@@ -45,7 +93,7 @@ CommentSold expects for the API key to be included in all API requests to the se
 
 ```shell
 curl "https://divas.commentsold.com/api/2.0/products?app_version=1.3&category=1&skip=0"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
 
@@ -108,7 +156,7 @@ Authentication is not required
 
 ```shell
 curl "https://divas.commentsold.com/api/2.0/products?app_version=1.3/1400"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
 This endpoint retrieves a specific product.
