@@ -223,6 +223,14 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#sign-in" class="toc-h2 toc-link" data-title="Authentication">Sign in</a>
+                  </li>
+                  <li>
+                    <a href="#sign-out" class="toc-h2 toc-link" data-title="Authentication">Sign out</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#products" class="toc-h1 toc-link" data-title="Products">Products</a>
@@ -331,19 +339,69 @@
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"</span>
+</code></pre>
+<p>CommentSold uses JWT API keys to allow access to the API.</p>
+
+<p><img src="images/jwt-diagram.png" alt="JWT diagram" /></p>
+
+<p>CommentSold expects for the JWT to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</code></p>
+<h2 id='sign-in'>Sign in</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://divas.commentsold.com/api/2.0/signin"</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>The above command returns JSON structured like this:</p>
 </blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"jwt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<p>CommentSold uses JWT API keys to allow access to the API. You can register a new JWT API ......</p>
+</span></code></pre>
+<p>To sign in you should use Facebook accessToken and userID.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST /api/2.0/signin</code></p>
 
-<p>CommentSold expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>app_version</td>
+<td></td>
+</tr>
+<tr>
+<td>accessToken</td>
+<td></td>
+</tr>
+<tr>
+<td>userID</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='sign-out'>Sign out</h2><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"https://divas.commentsold.com/api/2.0/signout"</span>
+  -H <span class="s2">"Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"</span>
+</code></pre>
+<p>To sign out you should explicitly invalidate token</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST /api/2.0/signout</code></p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>app_version</td>
+<td></td>
+</tr>
+</tbody></table>
 <h1 id='products'>Products</h1><h2 id='get-all-products'>Get All Products</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://divas.commentsold.com/api/2.0/products?app_version=1.3&amp;category=1&amp;skip=0"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -382,7 +440,7 @@ curl <span class="s2">"api_endpoint_here"</span>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all products.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET /api/2.0/products</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
@@ -409,12 +467,12 @@ curl <span class="s2">"api_endpoint_here"</span>
 Authentication is not required
 </aside>
 <h2 id='get-a-specific-product'>Get a Specific product</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://divas.commentsold.com/api/2.0/products?app_version=1.3/1400"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"</span>
 </code></pre>
 <p>This endpoint retrieves a specific product.</p>
 
 <aside class="notice">Important to ignore cache data.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET /api/2.0/products/&lt;ID&gt;</code></p>
 
 <table><thead>
@@ -432,7 +490,7 @@ Authentication is not required
   -H <span class="s2">"Authorization: meowmeowmeow"</span>
 </code></pre>
 <p>This endpoint retrieves a waitlist products.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>GET /api/2.0/products/waitlist</code></p>
 
 <table><thead>
@@ -450,7 +508,7 @@ Authentication is not required
   -H <span class="s2">"Authorization: meowmeowmeow"</span>
 </code></pre>
 <p>This endpoint retrieves a waitlist products.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET /api/2.0/products/search?</code></p>
 
 <table><thead>
@@ -482,7 +540,7 @@ Authentication is not required
 </tbody></table>
 <h1 id='cart'>Cart</h1><h2 id='get-cart'>Get Cart</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://divas.commentsold.com/api/2.0/cart?app_version=1.3"</span>
   -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><h3 id='http-request-5'>HTTP Request</h3>
+</code></pre><h3 id='http-request-7'>HTTP Request</h3>
 <p><code>GET /api/2.0/cart</code></p>
 
 <table><thead>
@@ -498,7 +556,7 @@ Authentication is not required
 </tbody></table>
 <h2 id='get-past-orders'>Get Past Orders</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://divas.commentsold.com/api/2.0/carts?app_version=1.3"</span>
   -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><h3 id='http-request-6'>HTTP Request</h3>
+</code></pre><h3 id='http-request-8'>HTTP Request</h3>
 <p><code>GET /api/2.0/carts</code></p>
 
 <table><thead>
@@ -514,7 +572,7 @@ Authentication is not required
 </tbody></table>
 <h2 id='add-item'>Add Item</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://divas.commentsold.com/api/2.0/cart/products"</span>
   -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><h3 id='http-request-7'>HTTP Request</h3>
+</code></pre><h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST /api/2.0/cart/products</code></p>
 
 <table><thead>
@@ -536,7 +594,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='delete-item'>Delete Item</h2><h3 id='http-request-8'>HTTP Request</h3>
+<h2 id='delete-item'>Delete Item</h2><h3 id='http-request-10'>HTTP Request</h3>
 <p><code>DELETE /api/2.0/cart/products/&lt;inventory_id&gt;</code></p>
 
 <table><thead>
@@ -550,7 +608,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='add-coupon'>Add Coupon</h2><h3 id='http-request-9'>HTTP Request</h3>
+<h2 id='add-coupon'>Add Coupon</h2><h3 id='http-request-11'>HTTP Request</h3>
 <p><code>POST /api/2.0/cart/coupon</code></p>
 
 <table><thead>
@@ -568,7 +626,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='stripe'>Stripe</h1><h2 id='get-all-cards'>Get All Cards</h2><h3 id='http-request-10'>HTTP Request</h3>
+<h1 id='stripe'>Stripe</h1><h2 id='get-all-cards'>Get All Cards</h2><h3 id='http-request-12'>HTTP Request</h3>
 <p><code>GET /api/2.0/stripe/cards</code></p>
 
 <table><thead>
@@ -582,7 +640,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='add-card'>Add Card</h2><h3 id='http-request-11'>HTTP Request</h3>
+<h2 id='add-card'>Add Card</h2><h3 id='http-request-13'>HTTP Request</h3>
 <p><code>POST /api/2.0/stripe/cards</code></p>
 
 <table><thead>
@@ -600,7 +658,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='delete-card'>Delete Card</h2><h3 id='http-request-12'>HTTP Request</h3>
+<h2 id='delete-card'>Delete Card</h2><h3 id='http-request-14'>HTTP Request</h3>
 <p><code>DELETE /api/2.0/stripe/cards/&lt;ID&gt;</code></p>
 
 <table><thead>
@@ -614,7 +672,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='set-default-card'>Set Default Card</h2><h3 id='http-request-13'>HTTP Request</h3>
+<h2 id='set-default-card'>Set Default Card</h2><h3 id='http-request-15'>HTTP Request</h3>
 <p><code>PUT /api/2.0/stripe/cards/&lt;ID&gt;</code></p>
 
 <table><thead>
@@ -628,7 +686,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='checkout'>Checkout</h1><h2 id='stripe-2'>Stripe</h2><h3 id='http-request-14'>HTTP Request</h3>
+<h1 id='checkout'>Checkout</h1><h2 id='stripe-2'>Stripe</h2><h3 id='http-request-16'>HTTP Request</h3>
 <p><code>POST /api/2.0/checkout/stripe</code></p>
 
 <table><thead>
@@ -654,7 +712,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='paypal'>PayPal</h2><h3 id='http-request-15'>HTTP Request</h3>
+<h2 id='paypal'>PayPal</h2><h3 id='http-request-17'>HTTP Request</h3>
 <p><code>POST /api/2.0/checkout/paypal</code></p>
 
 <table><thead>
@@ -676,7 +734,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='get-balance'>Get Balance</h2><h3 id='http-request-16'>HTTP Request</h3>
+<h2 id='get-balance'>Get Balance</h2><h3 id='http-request-18'>HTTP Request</h3>
 <p><code>GET /api/2.0/checkout/balance</code></p>
 
 <table><thead>
@@ -690,7 +748,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='use-balance'>Use Balance</h2><h3 id='http-request-17'>HTTP Request</h3>
+<h2 id='use-balance'>Use Balance</h2><h3 id='http-request-19'>HTTP Request</h3>
 <p><code>POST /api/2.0/checkout/balance</code></p>
 
 <table><thead>
@@ -708,7 +766,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='settings'>Settings</h1><h2 id='set-address'>Set Address</h2><h3 id='http-request-18'>HTTP Request</h3>
+<h1 id='settings'>Settings</h1><h2 id='set-address'>Set Address</h2><h3 id='http-request-20'>HTTP Request</h3>
 <p><code>POST /api/2.0/address</code></p>
 
 <table><thead>
@@ -742,7 +800,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='get-address'>Get Address</h2><h3 id='http-request-19'>HTTP Request</h3>
+<h2 id='get-address'>Get Address</h2><h3 id='http-request-21'>HTTP Request</h3>
 <p><code>GET /api/2.0/address</code></p>
 
 <table><thead>
@@ -756,7 +814,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='update-email'>Update Email</h2><h3 id='http-request-20'>HTTP Request</h3>
+<h2 id='update-email'>Update Email</h2><h3 id='http-request-22'>HTTP Request</h3>
 <p><code>PUT /api/2.0/email</code></p>
 
 <table><thead>
@@ -774,7 +832,7 @@ Authentication is not required
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='get-email'>Get Email</h2><h3 id='http-request-21'>HTTP Request</h3>
+<h2 id='get-email'>Get Email</h2><h3 id='http-request-23'>HTTP Request</h3>
 <p><code>GET /api/2.0/email</code></p>
 
 <table><thead>
