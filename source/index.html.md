@@ -20,9 +20,9 @@ Welcome to the CommentSold API!
 
 # Base Shop
 
-Each CommentSold API request is based on a particular 'shop' - for example: https://commentsold.com/divas/api/2.0/status
+Each CommentSold API request is based on a particular 'shop' - for example: https://api-cdn.commentsold.com/2.0/divas/status
 
-Since CommentSold's server infrastructure dynamically caches content and uses CDNs to sheild the origins, all requests should route through the CDN - for example: https://cdn.commentsold.com/divas/api/2.0/status
+Since CommentSold's server infrastructure dynamically caches content and uses CDNs to sheild the origins, all requests should route through the CDN - for example: https://api-cdn.commentsold.com/2.0/divas/status
 
 It is recommended that you use your JWT with each request, though it will be stripped automatically on non-account-specific requests
 
@@ -32,7 +32,7 @@ It is recommended that you use your JWT with each request, though it will be str
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "https://cdn.commentsold.com//shop/api/2.0/status"
+curl "https://api-cdn.commentsold.com//2.0/{shop}/status"
   -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
@@ -47,7 +47,7 @@ CommentSold expects for the JWT to be included in all API requests to the server
 CommentSold also expects that the app_version is set in all API requests as a GET/POST parameter:
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/status?app_version=1.4
+curl "https://api-cdn.commentsold.com/2.0/divas/status?app_version=1.4
 ```
 
 <aside class="notice">
@@ -57,7 +57,7 @@ Note: If the JWT is invalid/expired/etc - we will 403 requests which should prom
 ## Sign in
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/signin"
+curl "https://api-cdn.commentsold.com/2.0/divas/signin"
 ```
 
 > The above command returns JSON structured like this:
@@ -76,7 +76,7 @@ To sign in you should use Facebook accessToken and userID.
 
 ### HTTP Request
 
-`POST /shop/api/2.0/signin`
+`POST /2.0/{shop}/signin`
 
 Parameter | Description
 --------- | -------
@@ -90,7 +90,7 @@ userID | The userID of the user logging in (how does the app have this? XXX)
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "https://cdn.commentsold.com/divas/api/2.0/signout"
+curl "https://api-cdn.commentsold.com/2.0/divas/signout"
   -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
@@ -98,7 +98,7 @@ To sign out you should explicitly invalidate token
 
 ### HTTP Request
 
-`POST /shop/api/2.0/signout`
+`POST /2.0/{shop}/signout`
 
 Parameter | Description
 --------- | -------
@@ -110,7 +110,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/products/feed?app_version=1.3&feed_type=1&skip=0"
+curl "https://api-cdn.commentsold.com/2.0/divas/products/feed?app_version=1.3&feed_type=1&skip=0"
   -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
@@ -156,7 +156,7 @@ This endpoint retrieves a feed of products chronologically based on how the Comm
 
 ### HTTP Request
 
-`GET /shop/api/2.0/products/feed`
+`GET /2.0/{shop}/products/feed`
 
 ### Query Parameters
 
@@ -174,7 +174,7 @@ Authentication is not required for this request
 ## Get a Specific product
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/products/id/1400?app_version=1.3"
+curl "https://api-cdn.commentsold.com/2.0/divas/products/id/1400?app_version=1.3"
   -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
@@ -192,7 +192,7 @@ curl "https://cdn.commentsold.com/divas/api/2.0/products/id/1400?app_version=1.3
     "qty":null,
     "base_retail":"24",
     "style":"sku7157",
-    "filename":"https://cdn.commentsold.com/shop/public/images/598893d453788.jpg",
+    "filename":"https://api-cdn.commentsold.com/shop/public/images/598893d453788.jpg",
     "likes":0,
     "inventory":
     [ 
@@ -220,7 +220,7 @@ This endpoint retrieves details of a specific product. Note that filename will b
 
 ### HTTP Request
 
-`GET /shop/api/2.0/products/<ID>`
+`GET /2.0/{shop}/products/<ID>`
 
 Parameter | Description
 --------- | -------
@@ -240,7 +240,7 @@ app_version | The app_version that is built-in with the app launch. This should 
     "qty":null,
     "base_retail":"24",
     "style":"sku7157",
-    "filename":"https://cdn.commentsold.com/shop/public/images/598893d453788.jpg",
+    "filename":"https://api-cdn.commentsold.com/shop/public/images/598893d453788.jpg",
     "likes":0,
     "comments":
     [
@@ -274,7 +274,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 ## Get Search Results
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/products/search?app_version=1.3&size=Small&feed_type=dress&instock=true&skip=10"
+curl "https://api-cdn.commentsold.com/2.0/divas/products/search?app_version=1.3&size=Small&feed_type=dress&instock=true&skip=10"
   -H "Authorization: meowmeowmeow"
 ```
 
@@ -282,7 +282,7 @@ This endpoint retrieves products based on custom input filters. You should dedup
 
 ### HTTP Request
 
-`GET /shop/api/2.0/products/search`
+`GET /2.0/{shop}/products/search`
 
 Parameter | Description
 --------- | -------
@@ -297,13 +297,13 @@ skip | Default is 0 - use this parameter to acheive pagination. You should dedup
 ## Get Cart
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/user/cart?app_version=1.3"
+curl "https://api-cdn.commentsold.com/2.0/divas/user/cart?app_version=1.3"
   -H "Authorization: meowmeowmeow"
 ```
 
 ### HTTP Request
 
-`GET /shop/api/2.0/user/cart`
+`GET /2.0/{shop}/user/cart`
 
 Parameter | Description
 --------- | -------
@@ -312,14 +312,14 @@ app_version | The app_version that is built-in with the app launch. This should 
 ## Get Past Orders
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/user/orders?skip=0&app_version=1.3"
+curl "https://api-cdn.commentsold.com/2.0/divas/user/orders?skip=0&app_version=1.3"
   -H "Authorization: meowmeowmeow"
 ```
 
 
 ### HTTP Request
 
-`GET /shop/api/2.0/user/orders`
+`GET /2.0/{shop}/user/orders`
 
 Parameter | Description
 --------- | -------
@@ -329,13 +329,13 @@ skip	| Default is 0 - use this parameter to acheive pagination. You should dedup
 ## Add Item
 
 ```shell
-curl "https://cdn.commentsold.com/divas/api/2.0/user/cart"
+curl "https://api-cdn.commentsold.com/2.0/divas/user/cart"
   -H "Authorization: meowmeowmeow"
 ```
 
 ### HTTP Request
 
-`POST /shop/api/2.0/user/cart/products`
+`POST /2.0/{shop}/user/cart/products`
 
 Parameter | Description
 --------- | -------
@@ -349,7 +349,7 @@ inventory_id |
 
 ### HTTP Request
 
-`DELETE /shop/api/2.0/user/cart/products/<orders_products_id>`
+`DELETE /2.0/{shop}/user/cart/products/<orders_products_id>`
 
 Parameter | Description
 --------- | -------
@@ -360,7 +360,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 ### HTTP Request
 
-`POST /shop/api/2.0/user/cart/coupon/<coupon_id>`
+`POST /2.0/{shop}/user/cart/coupon/<coupon_id>`
 
 Parameter | Description
 --------- | -------
@@ -376,7 +376,7 @@ code | Unique Coupon Code
 
 ### HTTP Request
 
-`GET /shop/api/2.0/user/cards`
+`GET /2.0/{shop}/user/cards`
 
 Parameter | Description
 --------- | -------
@@ -404,7 +404,7 @@ Cards:
 
 ### HTTP Request
 
-`POST /shop/api/2.0/user/cards`
+`POST /2.0/{shop}/user/cards`
 
 Parameter | Description
 --------- | -------
@@ -416,7 +416,7 @@ id |
 
 ### HTTP Request
 
-`DELETE /shop/api/2.0/user/cards/<ID>`
+`DELETE /2.0/{shop}/user/cards/<ID>`
 
 Parameter | Description
 --------- | -------
@@ -427,7 +427,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 ### HTTP Request
 
-`PUT /shop/api/2.0/stripe/cards/<ID>`
+`PUT /2.0/{shop}/stripe/cards/<ID>`
 
 Parameter | Description
 --------- | -------
@@ -441,7 +441,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 ### HTTP Request
 
-`POST /shop/api/2.0/checkout/stripe`
+`POST /2.0/{shop}/checkout/stripe`
 
 Parameter | Description
 --------- | -------
@@ -457,7 +457,7 @@ token |
 
 ### HTTP Request
 
-`POST /shop/api/2.0/checkout/paypal`
+`POST /2.0/{shop}/checkout/paypal`
 
 Parameter | Description
 --------- | -------
@@ -472,7 +472,7 @@ paymentjson |
 
 ### HTTP Request
 
-`GET /shop/api/2.0/user/balance`
+`GET /2.0/{shop}/user/balance`
 
 Parameter | Description
 --------- | -------
@@ -484,7 +484,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 ### HTTP Request
 
-`POST /shop/api/2.0/user/balance`
+`POST /2.0/{shop}/user/balance`
 
 Parameter | Description
 --------- | -------
@@ -505,7 +505,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 ### HTTP Request
 
-`POST /shop/api/2.0/address`
+`POST /2.0/{shop}/user/address`
 
 Parameter | Description
 --------- | -------
@@ -521,7 +521,7 @@ zip |
 
 ### HTTP Request
 
-`GET /shop/api/2.0/address`
+`GET /2.0/{shop}/user/address`
 
 Parameter | Description
 --------- | -------
@@ -532,7 +532,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 ### HTTP Request
 
-`PUT /shop/api/2.0/email`
+`PUT /2.0/{shop}/user/email`
 
 Parameter | Description
 --------- | -------
@@ -545,7 +545,7 @@ email |
 
 ### HTTP Request
 
-`GET /shop/api/2.0/email`
+`GET /2.0/{shop}/user/email`
 
 Parameter | Description
 --------- | -------
