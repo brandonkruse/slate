@@ -178,7 +178,7 @@ curl "https://api-cdn.commentsold.com/2.0/divas/products/id/1400?app_version=1.3
   -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
-> The above curl returns something similar to this:
+> Returns JSON similar to this:
 
 ```json
 [ 
@@ -226,49 +226,6 @@ Parameter | Description
 --------- | -------
 app_version | The app_version that is built-in with the app launch. This should correspond to a specific release of the app
 
-> Returns JSON similar to this:
-
-```json
-[
-  {
-    "prod_id":4096,
-    "feed_type":"shirt",
-    "created_time":1504116005,
-    "prod_name":"Varsity stripes sleeves top",
-    "description":"Hey Divas!! Be super comfortable in style, when you wear this loose fit top with athletic sleeves. Pair this fun top with your choice of jeans or leggings, to be ready for wherever your day takes you. Order now!!",
-    "measurements":"Medium Measurements: Bust- 50\"\/ Length- 28\"\r\nMaterials: 95% Viscose \/ 5% Spandex\r\nBrand: Eesome",
-    "qty":null,
-    "base_retail":"24",
-    "style":"sku7157",
-    "filename":"https://api-cdn.commentsold.com/shop/public/images/598893d453788.jpg",
-    "likes":0,
-    "comments":
-    [
-      {
-	"comment_id": 1234,
-	"comment_text": "Sold large",
-	"user_photo": "https://facebook.com/whatever.jpg"
-     }
-    ],
-    "inventory":
-    [
-      {
-        "inventory_id":30542,
-        "qty":0,
-        "color":"rust",
-        "size":"large"
-      },
-      {
-        "inventory_id":30537,
-        "qty":3,
-        "color":"blue",
-        "size":"small"
-      }
-    ],
-
-  }
-]
-```
 
 
 ## Get Search Results
@@ -537,7 +494,17 @@ app_version | The app_version that is built-in with the app launch. This should 
 Parameter | Description
 --------- | -------
 app_version | The app_version that is built-in with the app launch. This should correspond to a specific release of the app
-email |
+email | The email address you want to save for the user
+
+```shell
+curl "https://api-cdn.commentsold.com/2.0/divas/user/email?app_version=1.3&email=brandon@bkruse.com"
+```
+
+```json
+{
+  "success": "User email updated"
+}
+```
 
 
 ## Get Email
@@ -550,3 +517,16 @@ email |
 Parameter | Description
 --------- | -------
 app_version | The app_version that is built-in with the app launch. This should correspond to a specific release of the app
+
+
+```shell
+curl "https://api-cdn.commentsold.com/2.0/divas/user/email"
+```
+
+```json
+{
+  "email": "brandon@commentsold.com"
+}
+```
+
+
