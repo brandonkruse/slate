@@ -447,12 +447,18 @@ Parameter | Description
 --------- | -------
 app_version | The app_version that is built-in with the app launch. This should correspond to a specific release of the app
 
-> The above API call can do enough to mark an order as complete. We will mark the order as paid if the balance being used is greater than the total of the order
+The above API call can do enough to mark an order as complete. We will mark the order as paid if the balance being used is greater than the total of the order
 
-200 OK
-```json
-{"success": "Credit successfully applied to the order"}
+```shell
+curl "https://api-cdn.commentsold.com/2.0/divas/user/balance"
 ```
+
+```json
+{
+  "success": "Balance applied to cart"
+}
+```
+
 
 # Settings
 
