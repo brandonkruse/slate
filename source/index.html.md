@@ -110,7 +110,7 @@ app_version | The app_version that is built-in with the app launch. This should 
 
 
 ```shell
-curl "https://api-cdn.commentsold.com/2.0/divas/products/feed?app_version=1.3&feed_type=1&skip=0"
+curl "https://api-cdn.commentsold.com/2.0/divas/products/feed?app_version=1.3&skip=0"
   -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
 ```
 
@@ -122,29 +122,27 @@ curl "https://api-cdn.commentsold.com/2.0/divas/products/feed?app_version=1.3&fe
   {
     "prod_id":4096,
     "post_id":7343,
-    "feed_type":"shirt",
     "created_time":1504116005,
     "prod_name":"Varsity stripes sleeves top",
     "description":"Hey Divas!! Be super comfortable in style, when you wear this loose fit top with athletic sleeves. Pair this fun top with your choice of jeans or leggings, to be ready for wherever your day takes you. Order now!!",
-    "measurements":"Medium Measurements: Bust- 50\"\/ Length- 28\"\r\nMaterials: 95% Viscose \/ 5% Spandex\r\nBrand: Eesome",
     "qty":null,
-    "base_retail":"24",
     "style":"sku7157",
     "filename":"598893d453788.jpg",
-    "likes":0,
     "inventory":
     [
       {
         "inventory_id":30542,
         "qty":0,
         "color":"rust",
-        "size":"large"
+        "size":"large",
+	"price":24
       },      
       {
         "inventory_id":30537,
         "qty":3,
         "color":"blue",
         "size":"small"
+	"price":24
       }
     ],
 
@@ -163,10 +161,10 @@ This endpoint retrieves a feed of products chronologically based on how the Comm
 Parameter | Description
 --------- | -------
 app_version | The app_version that is built-in with the app launch. This should correspond to a specific release of the app
-feed_type | If the user has multiple feeds they post to (for example Divas, Kids, Diva VIP), then you specify them here. Each feed type has a numeric assigned to it (1, 2, 3 respectively)
 skip | Default is 0 - use this parameter to acheive pagination. You should deduplicate results based on the post_id as the primary key
 limit (optional) | Default is 10 
 
+feed_type (ignore) | If the user has multiple feeds they post to (for example Divas, Kids, Diva VIP), then you specify them here. Each feed type has a numeric assigned to it (1, 2, 3 respectively)
 <aside class="notice">
 Authentication is not required for this request
 </aside>
